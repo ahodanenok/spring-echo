@@ -2,7 +2,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="echo" class="ahodanenok.echo.EchoImpl" init-method="initFromXml" destroy-method="destroyFromXml">
+    <alias name="simpleEcho" alias="echo" />
+
+    <bean id="simpleEcho" class="ahodanenok.echo.impl.SimpleEcho"
+          init-method="initFromXml" destroy-method="destroyFromXml">
 
     </bean>
 

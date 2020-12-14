@@ -1,12 +1,13 @@
-package ahodanenok.echo;
+package ahodanenok.echo.impl;
 
+import ahodanenok.echo.Echo;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class EchoImpl implements Echo, InitializingBean, DisposableBean {
+public class SimpleEcho implements Echo, InitializingBean, DisposableBean {
 
     public String say() {
         return "echo";
