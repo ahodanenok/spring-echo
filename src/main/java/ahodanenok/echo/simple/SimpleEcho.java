@@ -1,4 +1,4 @@
-package ahodanenok.echo.impl;
+package ahodanenok.echo.simple;
 
 import ahodanenok.echo.Echo;
 import org.springframework.beans.factory.DisposableBean;

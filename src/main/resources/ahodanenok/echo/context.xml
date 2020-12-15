@@ -4,7 +4,7 @@
 
     <alias name="simpleEcho" alias="echo" />
 
-    <bean id="simpleEcho" class="ahodanenok.echo.impl.SimpleEcho"
+    <bean id="simpleEcho" class="ahodanenok.echo.simple.SimpleEcho"
           init-method="initFromXml" destroy-method="destroyFromXml">
 
     </bean>
