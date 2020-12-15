@@ -4,9 +4,15 @@
 
     <alias name="simpleEcho" alias="echo" />
 
-    <bean id="simpleEcho" class="ahodanenok.echo.simple.SimpleEcho"
-          init-method="initFromXml" destroy-method="destroyFromXml">
-
+    <bean id="simpleEcho" class="ahodanenok.echo.simple.SimpleEcho">
+        <property name="message" value="Hello, world!" />
+        <property name="sequence">
+            <bean class="ahodanenok.echo.simple.Sequence" destroy-method="destroy" init-method="init">
+                <constructor-arg name="startFrom" value="10" />
+                <constructor-arg name="step" value="2" />
+                <property name="resume" value="true" />
+            </bean>
+        </property>
     </bean>
 
     <bean id="client" class="ahodanenok.echo.EchoClient">

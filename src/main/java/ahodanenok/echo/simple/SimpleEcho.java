@@ -9,8 +9,24 @@ import javax.annotation.PreDestroy;
 
 public class SimpleEcho implements Echo, InitializingBean, DisposableBean {
 
+    private String message = "echo";
+    private Sequence sequence;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setSequence(Sequence sequence) {
+        this.sequence = sequence;
+    }
+
     public String say() {
-        return "echo";
+        String result = message;
+        if (sequence != null) {
+            result += " (" + sequence.next() + ")";
+        }
+
+        return result;
     }
 
     @PostConstruct
@@ -23,13 +39,6 @@ public class SimpleEcho implements Echo, InitializingBean, DisposableBean {
         println("InitializingBean.afterPropertiesSet");
     }
 
-    private void initFromXml() {
-        println("init from xml");
-    }
-
-    private void destroyFromXml() {
-        println("destroy from xml");
-    }
 
     @Override
     public void destroy() throws Exception {

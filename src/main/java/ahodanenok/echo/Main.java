@@ -10,10 +10,14 @@ import org.springframework.core.io.ClassPathResource;
 public class Main {
 
     public static void main(String[] args) {
+        int echoCount = 5;
+
         ApplicationContext context = createContext();
 
         EchoClient client = context.getBean("client", EchoClient.class);
-        System.out.println(client.echo());
+        for (int i = 0; i < echoCount; i++) {
+            System.out.println(client.echo());
+        }
     }
 
     private static ApplicationContext createContext() {
