@@ -6,6 +6,9 @@ import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.ResourcePropertySource;
+
+import java.io.IOException;
 
 public class Main {
 
@@ -29,6 +32,12 @@ public class Main {
 
         context.getBeanFactory().addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
         context.getBeanFactory().addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
+
+        try {
+            context.getEnvironment().getPropertySources().addFirst(new ResourcePropertySource("ahodanenok/echo/env.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         context.registerShutdownHook();
         context.load("classpath:ahodanenok/echo/context.xml");
