@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="client" class="ahodanenok.echo.EchoClient">
-        <constructor-arg ref="simpleEcho" />
+        <constructor-arg ref="echo" />
     </bean>
 </beans>

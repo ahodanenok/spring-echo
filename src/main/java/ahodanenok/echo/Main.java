@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
         int echoCount = 5;
 
+        System.setProperty("spring.profiles.active", "intl");
         ConfigurableApplicationContext context = createClientContext(createSimpleContext(createIntlContext(null)));
 
         EchoClient client = context.getBean("client", EchoClient.class);
@@ -50,13 +51,13 @@ public class Main {
         context.getBeanFactory().addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
 
         try {
-            context.getEnvironment().getPropertySources().addFirst(new ResourcePropertySource("ahodanenok/echo/simple/env.properties"));
+            context.getEnvironment().getPropertySources().addFirst(new ResourcePropertySource("ahodanenok/echo/env.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         context.registerShutdownHook();
-        context.load("classpath:ahodanenok/echo/context.xml");
+        context.load("classpath:ahodanenok/echo/simple/context.xml");
         context.refresh();
 
         return context;
