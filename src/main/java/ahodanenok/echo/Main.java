@@ -1,8 +1,13 @@
 package ahodanenok.echo;
 
+import ahodanenok.echo.intl.IntlConfig;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.CommonAnnotationBeanPostProcessor;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -15,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         int echoCount = 5;
 
-        ApplicationContext context = createContext();
+        ConfigurableApplicationContext context = createClientContext(createSimpleContext(createIntlContext(null)));
 
         EchoClient client = context.getBean("client", EchoClient.class);
         for (int i = 0; i < echoCount; i++) {
@@ -23,8 +28,19 @@ public class Main {
         }
     }
 
-    private static ApplicationContext createContext() {
+    private static ConfigurableApplicationContext createClientContext(ApplicationContext parent) {
+        GenericApplicationContext context = new GenericApplicationContext();
+        context.setParent(parent);
+        new XmlBeanDefinitionReader(context).loadBeanDefinitions("ahodanenok/echo/client/context.xml");
+        context.registerShutdownHook();
+        context.refresh();
+
+        return context;
+    }
+
+    private static ConfigurableApplicationContext createSimpleContext(ApplicationContext parent) {
         GenericXmlApplicationContext context = new GenericXmlApplicationContext();
+        context.setParent(parent);
 
         PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         placeholderConfigurer.setLocation(new ClassPathResource("ahodanenok/echo/echo.properties"));
@@ -34,13 +50,23 @@ public class Main {
         context.getBeanFactory().addBeanPostProcessor(new CommonAnnotationBeanPostProcessor());
 
         try {
-            context.getEnvironment().getPropertySources().addFirst(new ResourcePropertySource("ahodanenok/echo/env.properties"));
+            context.getEnvironment().getPropertySources().addFirst(new ResourcePropertySource("ahodanenok/echo/simple/env.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         context.registerShutdownHook();
         context.load("classpath:ahodanenok/echo/context.xml");
+        context.refresh();
+
+        return context;
+    }
+
+    private static ConfigurableApplicationContext createIntlContext(ApplicationContext parent) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.setParent(parent);
+        context.register(IntlConfig.class);
+        context.registerShutdownHook();
         context.refresh();
 
         return context;

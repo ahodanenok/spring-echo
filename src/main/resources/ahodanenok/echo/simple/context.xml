@@ -2,8 +2,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <alias name="simpleEcho" alias="echo" />
-
     <bean id="simpleEcho" class="ahodanenok.echo.simple.SimpleEcho">
         <property name="message" value="Hello, world!" />
         <property name="sequence">
@@ -13,9 +11,5 @@
                 <property name="resume" value="true" />
             </bean>
         </property>
-    </bean>
-
-    <bean id="client" class="ahodanenok.echo.EchoClient">
-        <constructor-arg ref="echo" />
     </bean>
 </beans>
