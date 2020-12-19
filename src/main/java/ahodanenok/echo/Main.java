@@ -1,6 +1,7 @@
 package ahodanenok.echo;
 
 import ahodanenok.echo.intl.IntlConfig;
+import ahodanenok.echo.pokemon.PokemonConfig;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
@@ -20,8 +21,8 @@ public class Main {
     public static void main(String[] args) {
         int echoCount = 5;
 
-        System.setProperty("spring.profiles.active", "intl");
-        ConfigurableApplicationContext context = createClientContext(createSimpleContext(createIntlContext(null)));
+        System.setProperty("spring.profiles.active", "pokemon");
+        ConfigurableApplicationContext context = createClientContext(createSimpleContext(createIntlContext(createPokemonContext(null))));
 
         EchoClient client = context.getBean("client", EchoClient.class);
         for (int i = 0; i < echoCount; i++) {
@@ -67,6 +68,16 @@ public class Main {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.setParent(parent);
         context.register(IntlConfig.class);
+        context.registerShutdownHook();
+        context.refresh();
+
+        return context;
+    }
+
+    private static ConfigurableApplicationContext createPokemonContext(ApplicationContext parent) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.setParent(parent);
+        context.register(PokemonConfig.class);
         context.registerShutdownHook();
         context.refresh();
 
