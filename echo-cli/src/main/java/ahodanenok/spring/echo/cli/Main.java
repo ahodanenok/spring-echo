@@ -9,6 +9,8 @@ public class Main {
         System.setProperty("spring.profiles.active", "intl");
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ahodanenok/spring/echo/context.xml");
+        context.registerShutdownHook();
+
         EchoService echoService = context.getBean("echoService", EchoService.class);
         System.out.println(echoService.echo());
     }

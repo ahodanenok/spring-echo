@@ -2,16 +2,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="echoService" class="ahodanenok.spring.echo.DefaultEchoService" autowire="constructor">
-
+    <bean id="echoService" class="ahodanenok.spring.echo.DefaultEchoService"
+          autowire="constructor" init-method="init" destroy-method="destroy">
+        <property name="counter" ref="counter" />
+        <property name="persistentCounter" value="true" />
     </bean>
+
+    <bean name="counter" class="ahodanenok.spring.echo.Counter" scope="prototype" />
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="location" value="classpath:ahodanenok/spring/echo/text/echo.properties" />
     </bean>
 
     <beans profile="text">
-        <bean id="echoText" class="ahodanenok.spring.echo.text.EchoText">
+        <bean id="echoText" class="ahodanenok.spring.echo.text.EchoText" primary="true">
             <constructor-arg value="${echo.text.message: echo}" />
             <property name="upperCase" value="true" />
         </bean>
