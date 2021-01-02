@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>ahodanenok.spring.echo</groupId>
     <artifactId>spring-echo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <version>1</version>
+
+    <modules>
+        <module>echo-core</module>
+        <module>echo-cli</module>
+    </modules>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>

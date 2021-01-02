@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="echoService" class="ahodanenok.spring.echo.DefaultEchoService" autowire="constructor">
+
+    </bean>
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="location" value="classpath:ahodanenok/spring/echo/text/echo.properties" />
+    </bean>
+
+    <beans profile="text">
+        <bean id="echoText" class="ahodanenok.spring.echo.text.EchoText">
+            <constructor-arg value="${echo.text.message: echo}" />
+            <property name="upperCase" value="true" />
+        </bean>
+    </beans>
+
+    <beans profile="intl">
+        <bean id="echoIntl" class="ahodanenok.spring.echo.text.EchoIntl">
+
+        </bean>
+
+        <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+            <property name="basename" value="ahodanenok/spring/echo/text/intl" />
+        </bean>
+    </beans>
+</beans>
