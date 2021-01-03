@@ -1,10 +1,7 @@
 package ahodanenok.echo.pokemon;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.TextNode;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +31,7 @@ public class PokemonLoader implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        node = mapper.readTree(new ClassPathResource("ahodanenok/echo/pokemons/pokemons.json").getInputStream());
+        node = mapper.readTree(new ClassPathResource("ahodanenok/spring/echo/pokemon/pokemons.json").getInputStream());
     }
 
     public List<Pokemon> load() {
