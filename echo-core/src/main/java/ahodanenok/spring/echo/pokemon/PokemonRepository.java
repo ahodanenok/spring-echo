@@ -49,10 +49,6 @@ public class PokemonRepository implements ResourceLoaderAware, EnvironmentAware 
         return pokemons.get(idx);
     }
 
-    public void add(Pokemon pokemon) {
-
-    }
-
     private void load() {
         pokemons = new ArrayList<>();
         Resource resource = getDataResource();
@@ -108,10 +104,6 @@ public class PokemonRepository implements ResourceLoaderAware, EnvironmentAware 
             createDataBinder(pokemon).bind(pvs);
             pokemons.add(pokemon);
         }
-    }
-
-    private void save() {
-
     }
 
     private DataBinder createDataBinder(Pokemon pokemon) {
