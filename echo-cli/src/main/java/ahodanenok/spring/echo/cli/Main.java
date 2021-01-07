@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.setProperty("spring.profiles.active", "pokemon");
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ahodanenok/spring/echo/context.xml");

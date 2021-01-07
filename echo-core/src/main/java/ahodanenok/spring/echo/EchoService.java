@@ -2,5 +2,5 @@ package ahodanenok.spring.echo;
 
 public interface EchoService {
 
-    String echo();
+    String echo() throws Exception;
 }

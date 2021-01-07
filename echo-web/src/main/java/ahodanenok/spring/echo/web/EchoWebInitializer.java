@@ -16,7 +16,7 @@ public class EchoWebInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         // todo: make configurable
-        System.setProperty("spring.profiles.active", "pokemon");
+        System.setProperty("spring.profiles.active", "faulty");
 
         XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
         rootContext.setConfigLocation("classpath:ahodanenok/spring/echo/context.xml");

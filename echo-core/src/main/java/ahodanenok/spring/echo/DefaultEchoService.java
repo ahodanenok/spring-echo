@@ -77,14 +77,14 @@ public class DefaultEchoService implements EchoService, EnvironmentAware {
     }
 
     @Override
-    public String echo() {
+    public String echo() throws Exception {
         try {
             // todo: formatter service
             return impl.echo().toString();
         } catch (Exception e) {
             if (counter != null) counter.countError();
             e.printStackTrace();
-            return null;
+            throw e;
         } finally {
             if (counter != null) counter.countRequest();
         }

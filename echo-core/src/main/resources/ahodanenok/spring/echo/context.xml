@@ -40,4 +40,8 @@
 
         <bean id="pokemonRepository" class="ahodanenok.spring.echo.pokemon.PokemonRepository" init-method="init" />
     </beans>
+
+    <beans profile="faulty">
+        <bean id="echoFaulty" class="ahodanenok.spring.echo.faulty.EchoFaulty" />
+    </beans>
 </beans>
